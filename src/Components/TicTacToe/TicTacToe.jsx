@@ -42,32 +42,30 @@ const TicTacToe = () => {
     }
 
     const checkWin = () => {
-        if (data[0]===data[1] && data[1]===data[2] && data[2]!==""){
-            won(data[2]);
+        // Победные комбинации
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+    
+        // Проверяем каждую победную комбинацию
+        for (let [a, b, c] of winCombinations) {
+            if (data[a] && data[a] === data[b] && data[a] === data[c]) {
+                won(data[a]);
+                return;
+            }
         }
-        else if(data[3]===data[4] && data[4]===data[5] && data[5]!==""){
-            won(data[5]);
-        }
-        else if(data[6]===data[7] && data[7]===data[8] && data[8]!==""){
-            won(data[8]);
-        }
-        else if(data[0]===data[3] && data[3]===data[6] && data[6]!==""){
-            won(data[6]);
-        }
-        else if(data[1]===data[4] && data[4]===data[7] && data[7]!==""){
-            won(data[7]);
-        }
-        else if(data[2]===data[5] && data[5]===data[8] && data[8]!==""){
-            won(data[8]);
-        }
-        else if(data[0]===data[4] && data[4]===data[8] && data[8]!==""){
-            won(data[8]);
-        }
-        else if(data[0]===data[1] && data[1]===data[2] && data[2]!==""){
-            won(data[2]);
-        }
-        else if(data[2]===data[4] && data[4]===data[6] && data[6]!==""){
-            won(data[6]);
+    
+        // Проверка на ничью (опционально)
+        if (!data.includes("")) {
+            titleRef.current.innerHTML = `It's a draw!`;
+            setLock(true);
         }
     }
 
